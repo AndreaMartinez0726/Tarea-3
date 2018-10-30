@@ -10,7 +10,7 @@ dati = np.genfromtxt('WDBC.dat', delimiter= ',' , dtype = None)
 
 datos=dat[:,1:]
 
-# Maligno =0; Beningino=0
+# Maligno =0; Benigno=1
 for i in range(0,len(datos)):
 	if(dati[i][1]=='M'):
 		datos[i][0]=1	
@@ -40,24 +40,30 @@ for i in range (len(valores)):
 	print "Autovalor", valores[i],"Correspondiente al siguiente autovector",vectores[i]
 #_________Punto 4____________
 
-
-for i in range (len(vectores)):
-	vectorpos = vectores[i]
-	print "el valor mas importante para el vector", i
-	print ":", np.max(vectorpos)
+#Imprima un mensaje que diga cuales son los parametros mas importantes en base a las componentes de los autovectores
+#for i in range (len(vectores)):
+#	vectorpos = vectores[i]
+#	print "el valor mas importante para el vector", i
+#	print ":", np.max(vectorpos)
 	
 	
 #___________Punto 5___________
 
-pc1 = vectores[0]
-pc2 = vectores[1]
-print pc1
-print pc2
+
+
+
+principales=[]
+principales.append(vectores[0])
+principales.append(vectores[1])
+prin=np.asarray(principales)
+
+nuevosdatos=np.dot(prin,datos.T)
 plt.figure()
-plt.scatter(pc1,pc2)
+plt.title('Proyeccion PC1 y PC2')
+
+plt.scatter(nuevosdatos[0,:],nuevosdatos[1,:])
 plt.show()
-	
-#https://plot.ly/ipython-notebooks/principal-component-analysis/#3--projection-onto-the-new-feature-space
+
 		
 
 
