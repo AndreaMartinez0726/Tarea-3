@@ -18,7 +18,8 @@ fm=np.log(fm)
 plt.figure()
 plt.imshow(fm)
 plt.axis('off')
-#plt.savefig('MartinezAndrea_FT2D.pdf')
+plt.title('Transformada de Fourier')
+plt.savefig('MartinezAndrea_FT2D.pdf')
 
 #_________Punto 3 ________
 
@@ -46,17 +47,19 @@ fm=np.log(fm)
 #_______Punto 4_________
 plt.figure()
 plt.imshow(fm)
+plt.title('Transformada de Fourier filtrada')
 plt.axis('off')
-#plt.savefig('MartinezAndrea_FT2D_filtrada.pdf')
+plt.savefig('MartinezAndrea_FT2D_filtrada.pdf')
 
 #_______Punto 5________
 
 inversa=fftpack.ifft2(Fourier)
 plt.figure()
 plt.imshow(inversa.real,cmap=plt.cm.gray)
+plt.title('Imagen filtrada')
 plt.axis('off')
-#plt.savefig('MartinezAndrea_Imagen_filtrada.pdf')
-plt.show()
+plt.savefig('MartinezAndrea_Imagen_filtrada.pdf')
+
 
 
 
