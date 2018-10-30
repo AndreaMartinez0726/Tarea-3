@@ -4,20 +4,22 @@ import scipy.io.wavfile as wav
 from scipy.fftpack import fft, fftfreq
 from scipy.interpolate import interp1d
 
-#Almacenar datos
+#_________Punto 1____________
 datos= np.genfromtxt('signal.dat',  delimiter=',')
 incompletos=np.genfromtxt('incompletos.dat', delimiter=',')
 
-#Grafica de signal.dat
+#_________Punto 2____________
 x= datos[:,0]
 y= datos[:,1]
 plt.figure()
 plt.plot(x,y)
 plt.title('Signal')
 plt.savefig('MartinezAndrea_signal.pdf')
-#Transformada discreta de Fourier a los datos signal
+#_________Punto 3_____________
 
 n = np.shape(datos)
+dt = (datos[1,0]-datos[0,0])
+FNy = 1/(2*dt)
 def DFT():
     xn = datos[:,1]
     pi = np.pi
@@ -30,14 +32,31 @@ def DFT():
     return dft
 coef = DFT()
 
+#_________Punto 4____________
 
-#Grafica transformada de Fourier
+freq1 = fftfreq(n[0],dt)
+mag = abs(coef)
+plt.figure()
+plt.plot(freq1,mag)
+plt.title('Transformada de Fourier')
+plt.xlabel('Frecuencias(Hz)')
+plt.ylabel('Amplitud')
+plt.savefig('MartinezAndrea_TF.pdf')
+
+#__________Punto 5____________
+# escribir las frecuencias principales de Fourier
+
+# ___________Punto 6___________
+def filtro (dft,freq1):
+    N = len(freq1)
+    for i in range (N):
+        if (freq1[i] > 1000):
+            dft[i]=0
+        if (freq1[i] < -1000):
+            dft[i]=0
+    return dft
 
 
-
-#Frecuencias principales
-
-#Filtro, transformada inversa y grafica
 
 #Mensaje porque no se puede hacer la transformada para los datos incompletos.dat
 
