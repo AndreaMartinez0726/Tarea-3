@@ -55,6 +55,8 @@ def filtro (dft,freq1):
         if (freq1[i] < -1000):
             dft[i]=0
     return dft
+fil= filtro(dft,freq1)
+print fil
 
 
 
