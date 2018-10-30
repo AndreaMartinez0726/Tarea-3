@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pylab as plt
 import scipy.io.wavfile as wav 
-from scipy.fftpack import fft, fftfreq
+from scipy.fftpack import fft, fftfreq,ifft
 from scipy.interpolate import interp1d
 
 #_________Punto 1____________
@@ -30,12 +30,12 @@ def DFT():
             xk[k] = xn[k]*(np.exp((-2j*pi*i*k)/(n[0])))
         dft[i] = (sum(xk))
     return dft
-coef = DFT()
+dft = DFT()
 
 #_________Punto 4____________
 
 freq1 = fftfreq(n[0],dt)
-mag = abs(coef)
+mag = abs(dft)
 plt.figure()
 plt.plot(freq1,mag)
 plt.title('Transformada de Fourier')
@@ -48,15 +48,22 @@ plt.savefig('MartinezAndrea_TF.pdf')
 
 # ___________Punto 6___________
 def filtro (dft,freq1):
-    N = len(freq1)
-    for i in range (N):
-        if (freq1[i] > 1000):
-            dft[i]=0
-        if (freq1[i] < -1000):
-            dft[i]=0
-    return dft
+	N = len(freq1)
+	#nuevasfre=np.zeros((n[0],1), dtype = complex)
+	for i in range (N):
+		if (freq1[i] > 1000):
+			dft[i]=0	
+		if (freq1[i] < -1000):
+			dft[i]=0
+			
+
+	return dft
 fil= filtro(dft,freq1)
 print fil
+
+def inversa(dft):
+	inversa=ifft(np.array(dft))
+	return inversa
 
 
 
