@@ -30,12 +30,12 @@ def DFT():
             xk[k] = xn[k]*(np.exp((-2j*pi*i*k)/(n[0])))
         dft[i] = (sum(xk))
     return dft
-dft = DFT()
+coef = DFT()
 
 #_________Punto 4____________
 
 freq1 = fftfreq(n[0],dt)
-mag = abs(dft)
+mag = abs(coef)
 plt.figure()
 plt.plot(freq1,mag)
 plt.title('Transformada de Fourier')
@@ -44,28 +44,27 @@ plt.ylabel('Amplitud')
 plt.savefig('MartinezAndrea_TF.pdf')
 
 #__________Punto 5____________
-# escribir las frecuencias principales de Fourier
+print "Las frecuencicias principales son:", freq1[4],freq1[6], freq1[11]
 
 # ___________Punto 6___________
-def filtro (dft,freq1):
+def filtro (coef,freq1):
 	N = len(freq1)
-	#nuevasfre=np.zeros((n[0],1), dtype = complex)
 	for i in range (N):
 		if (freq1[i] > 1000):
-			dft[i]=0	
+			coef[i]=0	
 		if (freq1[i] < -1000):
-			dft[i]=0
-			
+			coef[i]=0			
+	return coef
+fil= filtro(coef,freq1)
 
-	return dft
-fil= filtro(dft,freq1)
-print fil
+def inversa(fil):
+	inversa=ifft(np.array(fil))
+	return inversa.real
 
-def inversa(dft):
-	inversa=ifft(np.array(dft))
-	return inversa
-
-
+t_inversa= inversa(fil)
+plt.figure()
+plt.plot(t_inversa,datos[:,0])
+plt.show()
 
 #Mensaje porque no se puede hacer la transformada para los datos incompletos.dat
 
