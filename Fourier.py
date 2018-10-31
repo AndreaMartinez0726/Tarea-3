@@ -98,9 +98,8 @@ coefcu=DFT(int_cu)
 n1=np.shape(int_cua)
 n2=np.shape(int_cu)
 
+#_________Punto 9____________
 dt1 = (x1[1]-x1[0])
-
-
 mag1=abs(coefcua)
 mag2=abs(coefcu)
 
@@ -108,12 +107,20 @@ freq2= fftfreq(len(x),dt1)
 
 
 plt.figure()
+plt.subplot(3,1,1)
+plt.title('Transformada de Fourier senal original')
+plt.plot(freq1,mag)
+plt.subplot(3,1,2)
+plt.title('Transformada de Fouerie interpolacion cuadratica')
 plt.plot(freq2,mag1)
+plt.subplot(3,1,3)
 plt.plot(freq2,mag2)
-plt.title('Transformada de Fourier cuadrada')
+plt.title('Transformada de Fourier interpolacion cubica')
 plt.xlabel('Frecuencias(Hz)')
 plt.ylabel('Amplitud')
-plt.show()
+plt.savefig('MartinezAndrea_TF_interpol.pdf')
+
+
 
 
 
