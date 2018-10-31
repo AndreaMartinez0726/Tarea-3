@@ -20,8 +20,10 @@ plt.savefig('MartinezAndrea_signal.pdf')
 n = np.shape(datos)
 dt = (datos[1,0]-datos[0,0])
 FNy = 1/(2*dt)
-def DFT():
-    xn = datos[:,1]
+def DFT(data):
+    #xn = datos[:,1]
+    xn=data
+    n = np.shape(data)
     pi = np.pi
     dft = np.zeros((n[0],1), dtype = complex)
     for i in range (n[0]):
@@ -30,7 +32,7 @@ def DFT():
             xk[k] = xn[k]*(np.exp((-2j*pi*i*k)/(n[0])))
         dft[i] = (sum(xk))
     return dft
-coef = DFT()
+coef = DFT(datos[:,1])
 
 #_________Punto 4____________
 
@@ -63,29 +65,57 @@ def inversa(fil):
 
 t_inversa= inversa(fil)
 plt.figure()
-plt.plot(t_inversa,datos[:,0])
-plt.show()
+plt.plot(datos[:,0],t_inversa)
+plt.savefig('MartinezAndrea_filtrada.pdf')
+#_____________Punto 7____________
 
-#Mensaje porque no se puede hacer la transformada para los datos incompletos.dat
 
 
+#_______________Punto8____________
 #Interpolacion cuadratica u cubica de incompletos- tranformada de Fourier de datos incompletos
 x1= incompletos[:,0]
 y1=incompletos[:,1]
-def interpolacion(x1,y1):
-	cuadratica= interp1d(x1,y1,kind='quadratic')
-	cubica= interp1d(x1,y1,kind='cubic')
-	return cuadratica,cubica
+
+xmin=min(x1)
+xmax=max(x1)
+ymin=min(y1)
+ymax=max(y1)
+
+x=np.linspace(xmin,xmax,512)
 
 
 
 
-#grafica de la 3 transformadad (2 signal y 1 incompletos)
+cuadratica= interp1d(x1,y1,kind='quadratic')
+cubica= interp1d(x1,y1,kind='cubic')
+	
+int_cua=cuadratica(x)
+int_cu=cubica(x)
+
+coefcua = DFT(int_cua)
+coefcu=DFT(int_cu)
+
+n1=np.shape(int_cua)
+n2=np.shape(int_cu)
+
+dt1 = (x1[1]-x1[0])
+
+
+mag1=abs(coefcua)
+mag2=abs(coefcu)
+
+freq2= fftfreq(len(x),dt1)
+
+
+plt.figure()
+plt.plot(freq2,mag1)
+plt.plot(freq2,mag2)
+plt.title('Transformada de Fourier cuadrada')
+plt.xlabel('Frecuencias(Hz)')
+plt.ylabel('Amplitud')
+plt.show()
 
 
 
 
-#Filtro con 1000Hz y 500Hz
 
-
-#Grafica de los filtros.
