@@ -127,19 +127,27 @@ plt.savefig('MartinezAndrea_TF_interpol.pdf')
 def filtro2 (coef,freq1):
 	N = len(freq1)
 	for i in range (N):
-		if (freq1[i] > 1000):
-			coef[i]=0	
-		if (freq1[i] < -1000):
-			coef[i]=0
 		if (freq1[i] < 500):
 			coef[i]=0
 		if(freq1[i]< -500):
 			coef[i]=0			
 	return coef
-fil2= filtro2(coef,freq1)
-fil2= filtro2(coefcua,freq2)
-fil2= filtro2(coefcua,freq2)
-
+#filtros original
+filori1000= filtro(coef,freq1)
+filori500= filtro2(coef,freq1)
+#filtros cuadratica
+filcua1000= filtro(coefcua,freq2)
+filcua500= filtro2(coefcua,freq2)
+# filtros cubica 
+filcu1000=filtro(coefcu,freq2)
+filcu500=filtro2(coefcu,freq2)
+#inversas para cada filtro
+t_iO1000= inversa(filori1000)
+t_iO500=inversa(filori500)
+t_iCua1000=inversa(filcua1000)
+t_iCua500=inversa(filcua500)
+t_iCu100=inversa(filcu1000)
+t_iCu500=inversa(filcu500)
 
 
 
