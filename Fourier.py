@@ -119,9 +119,26 @@ plt.title('Transformada de Fourier interpolacion cubica')
 plt.xlabel('Frecuencias(Hz)')
 plt.ylabel('Amplitud')
 plt.savefig('MartinezAndrea_TF_interpol.pdf')
+#___________Punto 10_____________
+
+#__________Punto 11________________
 
 
-
+def filtro2 (coef,freq1):
+	N = len(freq1)
+	for i in range (N):
+		if (freq1[i] > 1000):
+			coef[i]=0	
+		if (freq1[i] < -1000):
+			coef[i]=0
+		if (freq1[i] < 500):
+			coef[i]=0
+		if(freq1[i]< -500):
+			coef[i]=0			
+	return coef
+fil2= filtro2(coef,freq1)
+fil2= filtro2(coefcua,freq2)
+fil2= filtro2(coefcua,freq2)
 
 
 
